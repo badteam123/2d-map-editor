@@ -318,6 +318,14 @@ function windowResized() {
 }
 
 function keyPressed(){
+  if(buildMenu.open){
+    if(keyCode === 38){
+      buildMenu.selection -= 1;
+    }
+    if(keyCode === 40){
+      buildMenu.selection += 1;
+    }
+  }
   if(keyCode == 80){ // p
     exportMap();
   }
@@ -439,20 +447,40 @@ function toggleBuildMenu(){
   buildMenu.open = !buildMenu.open;
 }
 
-function exportMap(){
-  //oh god please no
-  console.log("Beginning Export");
-  for(let i = 0; i < tiles.length; i++){
-    console.log("Compressed 1...");
-    try{
-      if(tiles[i].dx === tiles[i-1].dx && tiles[i].y === tiles[i-1].y){
-        tiles[i].dx += 1;
-        tiles[i].x -= 1;
-        i--
-        tiles.splice(i,1);
+
+//still no worky
+function exportMap() {
+  // Create a new array to store the compressed blocks
+  let compressedTiles = [];
+
+  // Iterate through each tile in the tiles array
+  for(let i = 0; i < tiles.length; i++) {
+    // Get the current tile
+    let currentTile = tiles[i];
+    let merged = false;
+
+    // Iterate through the compressed tiles array to check for merging
+    for(let j = 0; j < compressedTiles.length; j++) {
+      // Get the current compressed tile
+      let compressedTile = compressedTiles[j];
+
+      // Check if the tiles have the same dx and dy values
+      if(currentTile.dx === compressedTile.dx && currentTile.y === compressedTile.y) {
+        // Update dx and dy of the compressed tile
+        compressedTile.dx += currentTile.dx;
+        compressedTile.dy += currentTile.dy;
+        merged = true;
+        break;
       }
-    } catch(e) {
-      console.log(e)
+    }
+
+    // If the current tile was not merged with any existing compressed tile, add it as a new compressed tile
+    if(!merged) {
+      compressedTiles.push(currentTile);
     }
   }
+
+  // Output the compressed tiles
+  console.log("Compressed Tiles:");
+  console.log(compressedTiles);
 }

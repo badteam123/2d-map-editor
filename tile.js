@@ -11,14 +11,14 @@ class Tile {
   render(){
     noStroke();
     if(displayMode){
-      image(getImage(this.tex),GameToScreen("x",this.x),GameToScreen("y",this.y),tileSize+1,tileSize+1);
+      image(getImage(this.tex),GameToScreen("x",this.x),GameToScreen("y",this.y),(this.dx*tileSize)+1,(this.dy*tileSize)+1);
     } else {
       if(this.s){
         fill(200);
       } else {
         fill(150)
       }
-      rect(GameToScreen("x",this.x)-0.5,GameToScreen("y",this.y)-0.5, tileSize+1, tileSize+1);
+      rect(GameToScreen("x",this.x)-0.5,GameToScreen("y",this.y)-0.5, (this.dx*tileSize)+1, (this.dy*tileSize)+1);
     }
   }
 
