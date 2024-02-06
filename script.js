@@ -12,6 +12,8 @@ var player = {
   active: false
 }
 
+//we love tests
+
 var drag = {
   x1: 0,
   y1: 0,
