@@ -63,7 +63,7 @@ var stars = [];
 function preload() {
 
   // any images are added to the build menu automatically for conviencence. Frankly, I don't know why you wouldn't want that besides for like the star or smthn
-  let imageList = ["grass_top","grassside1","grassside2","grassy","bush","dirt","dirt_back","grass","stone","star"] // remember to add it here
+  let imageList = ["grass_top","grassside1","grassside2","grassy","bush","dirt","dirt_back","grass","stone","star","wall1","windowwall1","doorwall1","roof1","roof2","roof3"] // remember to add it here
 
   // loop through each image file
   for (let i = 0; i < imageList.length; i++) {
@@ -451,7 +451,7 @@ function toggleBuildMenu(){
 
 
 //still no worky
-function exportMap() {
+function exportMap() { // USE WITH CAUTION, IRRECOVERABLE AS OF NOW!!!
   // Create a new array to store the compressed blocks
   let compressedTiles = [];
 
@@ -467,12 +467,13 @@ function exportMap() {
       let compressedTile = compressedTiles[j];
 
       // Check if the tiles have the same dx and dy values
-      if(currentTile.dx === compressedTile.dx && currentTile.y === compressedTile.y) {
-        // Update dx and dy of the compressed tile
-        compressedTile.dx += currentTile.dx;
-        compressedTile.dy += currentTile.dy;
-        merged = true;
-        break;
+      if(currentTile.name === compressedTile.name && currentTile.y === compressedTile.y) {
+        //if(compressedTile.x > currentTile.x + currentTile.dx && compressedTile.x < currentTile.x + currentTile.dx){ doesnt work for tiles seperated from eachother yet
+          // Update dx and dy of the compressed tile
+          compressedTile.dx += currentTile.dx;
+          merged = true;
+          break;
+        //}
       }
     }
 
@@ -485,4 +486,5 @@ function exportMap() {
   // Output the compressed tiles
   console.log("Compressed Tiles:");
   console.log(compressedTiles);
+  tiles = compressedTiles;
 }
